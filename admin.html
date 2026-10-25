@@ -6,90 +6,127 @@
     <title>Administration - SK PLUS</title>
     <style>
         body { background-color: #050B14; color: white; font-family: Arial, sans-serif; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        .admin-container { background-color: #0A2540; padding: 30px; border-radius: 10px; width: 100%; max-width: 600px; border: 1px solid #1E3A5F; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        h2 { color: #F5B301; text-align: center; margin-top: 0; }
-        label { display: block; margin-top: 15px; font-size: 14px; color: #A0AAB2; }
-        input, textarea { width: 100%; padding: 12px; margin-top: 5px; border-radius: 5px; border: 1px solid #1E3A5F; background-color: #050B14; color: white; box-sizing: border-box; }
-        button { background-color: #F5B301; color: #0A2540; border: none; padding: 15px; width: 100%; margin-top: 25px; font-weight: bold; font-size: 16px; border-radius: 5px; cursor: pointer; }
+        .admin-container { background-color: #0A2540; padding: 20px; border-radius: 10px; width: 100%; max-width: 600px; border: 1px solid #1E3A5F; margin-bottom: 20px; }
+        h2, h3 { color: #F5B301; margin-top: 0; }
+        label { display: block; margin-top: 10px; font-size: 13px; color: #A0AAB2; }
+        input, textarea { width: 100%; padding: 10px; margin-top: 5px; border-radius: 5px; border: 1px solid #1E3A5F; background-color: #050B14; color: white; box-sizing: border-box; }
+        button { background-color: #F5B301; color: #0A2540; border: none; padding: 15px; width: 100%; margin-top: 20px; font-weight: bold; font-size: 16px; border-radius: 5px; cursor: pointer; }
         button:hover { background-color: #FFC107; }
-        .result-box { display: none; margin-top: 30px; background-color: #050B14; padding: 20px; border-radius: 5px; border: 1px dashed #F5B301; }
-        .result-box h3 { color: #F5B301; margin-top: 0; font-size: 16px; }
-        .code-area { width: 100%; height: 200px; font-family: monospace; font-size: 12px; background-color: #000; color: #00FF00; padding: 10px; border: 1px solid #1E3A5F; }
-        .btn-copy { background-color: #1E3A5F; color: white; margin-top: 10px; }
+        .result-box { display: none; margin-top: 20px; background-color: #050B14; padding: 15px; border-radius: 5px; border: 1px dashed #F5B301; }
+        .code-area { width: 100%; height: 200px; font-family: monospace; font-size: 12px; background-color: #000; color: #00FF00; padding: 10px; border: 1px solid #1E3A5F; margin-top: 10px;}
     </style>
 </head>
 <body>
 
     <div class="admin-container" id="login-section">
         <h2>Connexion Administration</h2>
-        <label>Mot de passe :</label>
-        <input type="password" id="password" placeholder="Entrez le mot de passe">
+        <input type="password" id="password" placeholder="Mot de passe">
         <button onclick="login()">Se connecter</button>
     </div>
 
-    <div class="admin-container" id="form-section" style="display: none;">
-        <h2>Gérer le site SK PLUS</h2>
+    <div id="form-section" style="display: none; width: 100%; max-width: 600px;">
         
-        <label>Texte du bandeau FLASH INFO :</label>
-        <input type="text" id="breakingNews" placeholder="Ex: Flash info de dernière minute...">
+        <!-- BANDEAU ET UNE -->
+        <div class="admin-container">
+            <h3>1. Bandeau & À la une</h3>
+            <label>Texte du bandeau FLASH INFO :</label>
+            <input type="text" id="breakingNews">
+            <label>Catégorie À la une :</label>
+            <input type="text" id="heroCategory">
+            <label>Titre À la une :</label>
+            <input type="text" id="heroTitle">
+            <label>Description À la une :</label>
+            <textarea id="heroDesc" rows="2"></textarea>
+            <label>Lien image À la une :</label>
+            <input type="text" id="heroImage">
+        </div>
 
-        <label>Catégorie de l'article à la une :</label>
-        <input type="text" id="heroCategory" placeholder="Ex: POLITIQUE, SPORT, CULTURE...">
+        <!-- TOP STORIES -->
+        <div class="admin-container">
+            <h3>2. Top Stories (3 articles)</h3>
+            
+            <h4 style="color:#fff; font-size:12px; margin-top:10px;">Article 1</h4>
+            <input type="text" id="art1_cat" placeholder="Catégorie (ex: MUSIQUE)">
+            <input type="text" id="art1_title" placeholder="Titre de l'article" style="margin-top:5px;">
+            <input type="text" id="art1_time" placeholder="Temps (ex: 4 min)" style="margin-top:5px;">
+            <input type="text" id="art1_image" placeholder="Lien de l'image" style="margin-top:5px;">
 
-        <label>Titre de l'article à la une :</label>
-        <input type="text" id="heroTitle" placeholder="Ex: Lancement officiel de SK PLUS">
+            <h4 style="color:#fff; font-size:12px; margin-top:15px;">Article 2</h4>
+            <input type="text" id="art2_cat" placeholder="Catégorie">
+            <input type="text" id="art2_title" placeholder="Titre de l'article" style="margin-top:5px;">
+            <input type="text" id="art2_time" placeholder="Temps" style="margin-top:5px;">
+            <input type="text" id="art2_image" placeholder="Lien de l'image" style="margin-top:5px;">
 
-        <label>Description (sous-titre) :</label>
-        <textarea id="heroDesc" rows="3"></textarea>
+            <h4 style="color:#fff; font-size:12px; margin-top:15px;">Article 3</h4>
+            <input type="text" id="art3_cat" placeholder="Catégorie">
+            <input type="text" id="art3_title" placeholder="Titre de l'article" style="margin-top:5px;">
+            <input type="text" id="art3_time" placeholder="Temps" style="margin-top:5px;">
+            <input type="text" id="art3_image" placeholder="Lien de l'image" style="margin-top:5px;">
+        </div>
 
-        <label>Lien de l'image (URL) :</label>
-        <input type="text" id="heroImage" placeholder="https://...">
-
-        <button onclick="genererCode()">Générer la mise à jour</button>
+        <button onclick="genererCode()">Générer la mise à jour complète</button>
 
         <div class="result-box" id="result">
-            <h3>✅ Copiez le code ci-dessous :</h3>
-            <p style="font-size: 12px; color: #A0AAB2;">Allez sur GitHub > Ouvrez <b>data.js</b> > Cliquez sur le crayon ✏️ > Remplacez tout par ce code > Validez.</p>
+            <h3>✅ Copiez ce code :</h3>
             <textarea class="code-area" id="outputCode" readonly></textarea>
-            <button class="btn-copy" onclick="copier()">Copier le code</button>
+            <button onclick="copier()">Copier le code</button>
         </div>
     </div>
 
     <script src="data.js"></script>
     <script>
         function login() {
-            const pass = document.getElementById('password').value;
-            if (pass === "skplus2024") { // Le mot de passe
+            if (document.getElementById('password').value === "skplus2024") {
                 document.getElementById('login-section').style.display = 'none';
                 document.getElementById('form-section').style.display = 'block';
                 
-                // Remplir le formulaire avec les données actuelles
+                // Remplissage des champs
                 document.getElementById('breakingNews').value = siteData.breakingNews;
                 document.getElementById('heroCategory').value = siteData.heroCategory;
                 document.getElementById('heroTitle').value = siteData.heroTitle;
                 document.getElementById('heroDesc').value = siteData.heroDesc;
                 document.getElementById('heroImage').value = siteData.heroImage;
-            } else {
-                alert("Mot de passe incorrect !");
-            }
+
+                // Remplissage des 3 articles
+                siteData.articles.forEach((art, index) => {
+                    document.getElementById(`art${index+1}_cat`).value = art.category;
+                    document.getElementById(`art${index+1}_title`).value = art.title;
+                    document.getElementById(`art${index+1}_time`).value = art.time;
+                    document.getElementById(`art${index+1}_image`).value = art.image;
+                });
+            } else { alert("Mot de passe incorrect"); }
         }
 
         function genererCode() {
-            const bn = document.getElementById('breakingNews').value;
-            const hc = document.getElementById('heroCategory').value;
-            const ht = document.getElementById('heroTitle').value;
-            const hd = document.getElementById('heroDesc').value;
-            const hi = document.getElementById('heroImage').value;
+            const newData = {
+                breakingNews: document.getElementById('breakingNews').value,
+                heroCategory: document.getElementById('heroCategory').value,
+                heroTitle: document.getElementById('heroTitle').value,
+                heroDesc: document.getElementById('heroDesc').value,
+                heroImage: document.getElementById('heroImage').value,
+                articles: [
+                    {
+                        category: document.getElementById('art1_cat').value,
+                        title: document.getElementById('art1_title').value,
+                        time: document.getElementById('art1_time').value,
+                        image: document.getElementById('art1_image').value
+                    },
+                    {
+                        category: document.getElementById('art2_cat').value,
+                        title: document.getElementById('art2_title').value,
+                        time: document.getElementById('art2_time').value,
+                        image: document.getElementById('art2_image').value
+                    },
+                    {
+                        category: document.getElementById('art3_cat').value,
+                        title: document.getElementById('art3_title').value,
+                        time: document.getElementById('art3_time').value,
+                        image: document.getElementById('art3_image').value
+                    }
+                ]
+            };
 
-            const code = `const siteData = {
-    breakingNews: "${bn}",
-    heroCategory: "${hc}",
-    heroTitle: "${ht}",
-    heroDesc: "${hd}",
-    heroImage: "${hi}"
-};`;
-
-            document.getElementById('outputCode').value = code;
+            document.getElementById('outputCode').value = "const siteData = " + JSON.stringify(newData, null, 4) + ";";
             document.getElementById('result').style.display = 'block';
         }
 
