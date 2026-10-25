@@ -3,49 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SK PLUS - Sendwe Katolo Plus</title>
+    <title>SK PLUS - Sendwe Katolo</title>
     <style>
-        :root { --bleu-profond: #0A2540; --jaune-or: #F5B301; --blanc: #FFFFFF; }
-        body { margin: 0; background-color: var(--bleu-profond); color: var(--blanc); font-family: 'Montserrat', Arial, sans-serif; display: flex; flex-direction: column; align-items: center; text-align: center; min-height: 100vh; }
-        header { padding: 50px 20px 20px; }
-        .logo { font-size: 65px; font-weight: 900; margin: 0; }
-        .logo span { color: var(--jaune-or); }
-        .sous-titre { font-size: 14px; letter-spacing: 6px; text-transform: uppercase; margin-top: 10px; color: #A0AAB2; }
-        .video-container { width: 90%; max-width: 800px; aspect-ratio: 16 / 9; background-color: #000; border: 2px solid var(--jaune-or); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 30px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow: hidden;}
-        .video-placeholder { font-size: 18px; color: #666; }
-        iframe { width: 100%; height: 100%; border: none; }
-        .cta-container { margin: 20px 0 50px; }
-        .btn-yt { background-color: var(--jaune-or); color: var(--bleu-profond); padding: 15px 40px; font-size: 18px; font-weight: bold; text-decoration: none; border-radius: 50px; transition: transform 0.2s; }
-        .btn-yt:hover { transform: scale(1.05); }
-        footer { margin-top: auto; padding: 20px; font-size: 12px; color: #A0AAB2; border-top: 1px solid #1E3A5F; width: 100%; }
-        @media (max-width: 600px) { .logo { font-size: 45px; } .sous-titre { font-size: 10px; letter-spacing: 4px; } }
+        /* --- CHARTE GRAPHIQUE --- */
+        :root {
+            --bleu-fonce: #050B14;
+            --bleu-profond: #0A2540;
+            --jaune-or: #F5B301;
+            --blanc: #FFFFFF;
+            --gris: #A0AAB2;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', Arial, sans-serif; }
+        
+        body { background-color: var(--bleu-fonce); color: var(--blanc); overflow-x: hidden; }
+
+        /* --- BARRE DE NAVIGATION --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 4%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(5,11,20,1) 0%, rgba(5,11,20,0) 100%);
+            transition: background 0.3s;
+        }
+        .nav-logo { font-size: 28px; font-weight: 900; letter-spacing: 1px; }
+        .nav-logo span { color: var(--jaune-or); }
+        .nav-links { display: none; }
+        .nav-links a { color: var(--gris); text-decoration: none; margin-left: 20px; font-size: 14px; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--blanc); }
+        .nav-profile { width: 35px; height: 35px; background-color: var(--jaune-or); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: var(--bleu-fonce); font-weight: bold; cursor: pointer; }
+
+        /* --- BANNIÈRE PRINCIPALE (HERO) --- */
+        .hero {
+            position: relative;
+            height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 0 4% 100px 4%;
+            background: linear-gradient(to top, var(--bleu-fonce) 0%, rgba(5,11,20,0.4) 50%, rgba(5,11,20,0.8) 100%), 
+                        url('https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?q=80&w=1600') center/cover;
+        }
+        .hero-content { max-width: 600px; z-index: 10; }
+        .hero-badge { color: var(--jaune-or); font-size: 12px; font-weight: bold; letter-spacing: 2px; margin-bottom: 10px; display: block; }
+        .hero-title { font-size: 50px; font-weight: 900; margin-bottom: 15px; line-height: 1.1; }
+        .hero-description { font-size: 16px; color: #E0E0E0; margin-bottom: 25px; line-height: 1.5; text-shadow: 1px 1px 5px rgba(0,0,0,0.8); }
+        
+        /* --- BOUTONS --- */
+        .hero-buttons { display: flex; gap: 15px; }
+        .btn { padding: 12px 28px; font-size: 16px; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: transform 0.2s; }
+        .btn-play { background-color: var(--jaune-or); color: var(--bleu-fonce); }
+        .btn-play:hover { background-color: #FFC107; transform: scale(1.05); }
+        .btn-info { background-color: rgba(255,255,255,0.2); color: var(--blanc); }
+        .btn-info:hover { background-color: rgba(255,255,255,0.3); transform: scale(1.05); }
+
+        /* --- RANGÉES DE PROGRAMMES (CARROUSEL) --- */
+        .section-title { padding: 0 4%; font-size: 20px; font-weight: 600; margin-bottom: 15px; margin-top: 20px; }
+        
+        .row { display: flex; overflow-x: auto; gap: 10px; padding: 0 4% 40px 4%; scrollbar-width: none; }
+        .row::-webkit-scrollbar { display: none; }
+        
+        .card { flex: 0 0 220px; aspect-ratio: 16/9; border-radius: 6px; overflow: hidden; cursor: pointer; position: relative; transition: transform 0.3s; }
+        .card:hover { transform: scale(1.05); z-index: 10; box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .card img { width: 100%; height: 100%; object-fit: cover; }
+        .card-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 10px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); font-size: 14px; font-weight: bold; }
+        .card-live { position: absolute; top: 10px; left: 10px; background-color: red; color: white; font-size: 10px; font-weight: bold; padding: 3px 6px; border-radius: 3px; }
+
+        /* --- PIED DE PAGE --- */
+        footer { padding: 40px 4%; color: var(--gris); font-size: 12px; border-top: 1px solid #1E3A5F; margin-top: 20px; }
+        footer p { margin-bottom: 10px; }
+        .footer-logo { color: var(--blanc); font-size: 18px; font-weight: bold; margin-bottom: 20px; display: block; }
+        .footer-logo span { color: var(--jaune-or); }
+
+        /* --- RESPONSIVE (Téléphones) --- */
+        @media (min-width: 768px) {
+            .nav-links { display: flex; }
+            .hero-title { font-size: 70px; }
+            .nav-logo { font-size: 32px; }
+        }
     </style>
 </head>
 <body>
-    <header>
-        <h1 class="logo">SK <span>PLUS</span></h1>
-        <p class="sous-titre">Sendwe Katolo</p>
+
+    <!-- MENU NAVIGATION -->
+    <nav>
+        <div class="nav-logo">SK <span>PLUS</span></div>
+        <div class="nav-links">
+            <a href="#" style="color: white; font-weight: bold;">Accueil</a>
+            <a href="#">Programmes</a>
+            <a href="#">Direct</a>
+            <a href="#">Musique</a>
+            <a href="#">Débats</a>
+        </div>
+        <div class="nav-profile">SK</div>
+    </nav>
+
+    <!-- GRANDE BANNIÈRE -->
+    <header class="hero">
+        <div class="hero-content">
+            <span class="hero-badge">SK PLUS ORIGINAL</span>
+            <h1 class="hero-title">SK PLUS Info : <br>Le Direct</h1>
+            <p class="hero-description">L'actualité congolaise et internationale en direct. Suivez nos journalistes pour ne rien manquer de ce qui se passe au Congo et dans la diaspora.</p>
+            <div class="hero-buttons">
+                <!-- Le bouton play pointe vers le direct, vous pourrez changer le lien ici -->
+                <a href="https://youtube.com/@skplus" target="_blank" class="btn btn-play">▶ Regarder le Direct</a>
+                <button class="btn btn-info">ℹ Plus d'infos</button>
+            </div>
+        </div>
     </header>
-    <main>
-        <div class="video-container" id="video-player">
-            <div class="video-placeholder" id="video-message">Chargement du direct...</div>
+
+    <!-- SECTION : EN DIRECT -->
+    <h2 class="section-title">En Direct sur SK PLUS</h2>
+    <div class="row">
+        <div class="card">
+            <span class="card-live">LIVE</span>
+            <img src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?q=80&w=400" alt="Direct Info">
+            <div class="card-overlay">SK Info - Le JT</div>
         </div>
-        <div class="cta-container">
-            <a href="https://youtube.com/@skplus" target="_blank" class="btn-yt">S'ABONNER À LA CHAÎNE</a>
+        <div class="card">
+            <span class="card-live">LIVE</span>
+            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=400" alt="Musique">
+            <div class="card-overlay">SK Music Live</div>
         </div>
-    </main>
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=400" alt="Débat">
+            <div class="card-overlay">SK Débat</div>
+        </div>
+    </div>
+
+    <!-- SECTION : PROGRAMMES -->
+    <h2 class="section-title">Les Programmes SK PLUS</h2>
+    <div class="row">
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1557425955-df376b5903c8?q=80&w=400" alt="Lifestyle">
+            <div class="card-overlay">SK Lifestyle</div>
+        </div>
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?q=80&w=400" alt="Ciné">
+            <div class="card-overlay">SK Ciné</div>
+        </div>
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1516280440502-bd9e43f0f94a?q=80&w=400" alt="Interview">
+            <div class="card-overlay">SK Rencontre</div>
+        </div>
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=400" alt="Sport">
+            <div class="card-overlay">SK Sport</div>
+        </div>
+    </div>
+
+    <!-- PIED DE PAGE -->
     <footer>
-        <p>&copy; 2024 SK PLUS - Sendwe Katolo. Tous droits réservés.</p>
-        <p>Ta TV, partout, tout le temps.</p>
+        <span class="footer-logo">SK <span>PLUS</span></span>
+        <p>Sendwe Katolo Plus. Ta TV, partout, tout le temps.</p>
+        <p>&copy; 2024 SK PLUS. Tous droits réservés.</p>
     </footer>
-    <script src="config.js"></script>
-    <script>
-        const player = document.getElementById('video-player');
-        if (siteConfig.youtubeEmbedUrl && siteConfig.youtubeEmbedUrl !== "") {
-            player.innerHTML = `<iframe src="${siteConfig.youtubeEmbedUrl}" allowfullscreen></iframe>`;
-        } else {
-            player.innerHTML = `<div class="video-placeholder">${siteConfig.messageDirect}</div>`;
-        }
-    </script>
+
 </body>
 </html>
