@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SK PLUS - Sendwe Katolo Plus</title>
+    <style>
+        :root { --bleu-profond: #0A2540; --jaune-or: #F5B301; --blanc: #FFFFFF; }
+        body { margin: 0; background-color: var(--bleu-profond); color: var(--blanc); font-family: 'Montserrat', Arial, sans-serif; display: flex; flex-direction: column; align-items: center; text-align: center; min-height: 100vh; }
+        header { padding: 50px 20px 20px; }
+        .logo { font-size: 65px; font-weight: 900; margin: 0; }
+        .logo span { color: var(--jaune-or); }
+        .sous-titre { font-size: 14px; letter-spacing: 6px; text-transform: uppercase; margin-top: 10px; color: #A0AAB2; }
+        .video-container { width: 90%; max-width: 800px; aspect-ratio: 16 / 9; background-color: #000; border: 2px solid var(--jaune-or); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 30px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow: hidden;}
+        .video-placeholder { font-size: 18px; color: #666; }
+        iframe { width: 100%; height: 100%; border: none; }
+        .cta-container { margin: 20px 0 50px; }
+        .btn-yt { background-color: var(--jaune-or); color: var(--bleu-profond); padding: 15px 40px; font-size: 18px; font-weight: bold; text-decoration: none; border-radius: 50px; transition: transform 0.2s; }
+        .btn-yt:hover { transform: scale(1.05); }
+        footer { margin-top: auto; padding: 20px; font-size: 12px; color: #A0AAB2; border-top: 1px solid #1E3A5F; width: 100%; }
+        @media (max-width: 600px) { .logo { font-size: 45px; } .sous-titre { font-size: 10px; letter-spacing: 4px; } }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="logo">SK <span>PLUS</span></h1>
+        <p class="sous-titre">Sendwe Katolo</p>
+    </header>
+    <main>
+        <div class="video-container" id="video-player">
+            <div class="video-placeholder" id="video-message">Chargement du direct...</div>
+        </div>
+        <div class="cta-container">
+            <a href="https://youtube.com/@skplus" target="_blank" class="btn-yt">S'ABONNER À LA CHAÎNE</a>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 SK PLUS - Sendwe Katolo. Tous droits réservés.</p>
+        <p>Ta TV, partout, tout le temps.</p>
+    </footer>
+    <script src="config.js"></script>
+    <script>
+        const player = document.getElementById('video-player');
+        if (siteConfig.youtubeEmbedUrl && siteConfig.youtubeEmbedUrl !== "") {
+            player.innerHTML = `<iframe src="${siteConfig.youtubeEmbedUrl}" allowfullscreen></iframe>`;
+        } else {
+            player.innerHTML = `<div class="video-placeholder">${siteConfig.messageDirect}</div>`;
+        }
+    </script>
+</body>
+</html>
