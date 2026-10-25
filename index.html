@@ -5,21 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SK PLUS - Sendwe Katolo</title>
     <style>
-        /* --- CHARTE GRAPHIQUE SK PLUS --- */
-        :root {
-            --bleu-fonce: #050B14;
-            --bleu-profond: #0A2540;
-            --jaune-or: #F5B301;
-            --blanc: #FFFFFF;
-            --gris: #8892B0;
-            --bordure: #1E3A5F;
-            --fond-image: #153B6B;
-        }
-
+        /* --- CHARTE GRAPHIQUE SK PLUS (Identique à avant) --- */
+        :root { --bleu-fonce: #050B14; --bleu-profond: #0A2540; --jaune-or: #F5B301; --blanc: #FFFFFF; --gris: #8892B0; --bordure: #1E3A5F; --fond-image: #153B6B; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', Arial, sans-serif; }
         body { background-color: var(--bleu-fonce); color: var(--blanc); line-height: 1.6; }
-
-        /* --- MENU NAVIGATION --- */
+        
         header { border-bottom: 1px solid var(--bordure); position: sticky; top: 0; background-color: var(--bleu-fonce); z-index: 100; }
         .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 15px 4%; max-width: 1200px; margin: 0 auto; }
         .nav-logo { font-size: 24px; font-weight: 900; letter-spacing: 1px; }
@@ -30,78 +20,22 @@
         .nav-live { color: #FF3B30; font-weight: bold; font-size: 12px; display: flex; align-items: center; gap: 5px; }
         .nav-live::before { content: ''; width: 8px; height: 8px; background-color: #FF3B30; border-radius: 50%; display: inline-block; animation: clignote 1s infinite; }
 
-        /* --- ANIMATION DU BANDEAU BREAKING NEWS --- */
-        .breaking-container {
-            background-color: var(--jaune-or);
-            color: var(--bleu-fonce);
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-            position: relative;
-            border-bottom: 2px solid var(--bleu-fonce);
-        }
-        
-        .breaking-label { 
-            background-color: var(--bleu-fonce); 
-            color: var(--blanc); 
-            padding: 10px 15px; 
-            font-size: 11px; 
-            font-weight: 900; 
-            letter-spacing: 1px; 
-            z-index: 10;
-            white-space: nowrap;
-            box-shadow: 5px 0 15px rgba(0,0,0,0.5);
-        }
+        .breaking-container { background-color: var(--jaune-or); color: var(--bleu-fonce); display: flex; align-items: center; overflow: hidden; position: relative; border-bottom: 2px solid var(--bleu-fonce); }
+        .breaking-label { background-color: var(--bleu-fonce); color: var(--blanc); padding: 10px 15px; font-size: 11px; font-weight: 900; letter-spacing: 1px; z-index: 10; white-space: nowrap; box-shadow: 5px 0 15px rgba(0,0,0,0.5); }
+        .breaking-marquee { display: flex; white-space: nowrap; animation: defilement 20s linear infinite; }
+        .breaking-marquee:hover { animation-play-state: paused; }
+        .breaking-item { font-size: 13px; font-weight: bold; padding: 0 30px; display: flex; align-items: center; }
+        .breaking-item::after { content: '•'; margin-left: 30px; color: var(--bleu-fonce); }
 
-        .breaking-marquee {
-            display: flex;
-            white-space: nowrap;
-            animation: defilement 20s linear infinite;
-        }
+        @keyframes defilement { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @keyframes clignote { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-        .breaking-marquee:hover {
-            animation-play-state: paused; /* Le défilement s'arrête quand on passe la souris */
-        }
-
-        .breaking-item {
-            font-size: 13px;
-            font-weight: bold;
-            padding: 0 30px;
-            display: flex;
-            align-items: center;
-        }
-
-        .breaking-item::after {
-            content: '•';
-            margin-left: 30px;
-            color: var(--bleu-fonce);
-        }
-
-        /* --- ANIMATIONS KEYFRAMES --- */
-        @keyframes defilement {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); } /* Défile de la moitié de sa largeur */
-        }
-
-        @keyframes clignote {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-
-        /* --- EFFET DE CHARGEMENT DES IMAGES --- */
         .img-container { position: relative; overflow: hidden; background-color: var(--fond-image); }
-        .img-container::before {
-            content: ""; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
-            animation: loading 1.5s infinite; z-index: 1;
-        }
+        .img-container::before { content: ""; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent); animation: loading 1.5s infinite; z-index: 1; }
         @keyframes loading { 100% { left: 100%; } }
         .img-container img { width: 100%; height: 100%; object-fit: cover; display: block; position: relative; z-index: 2; }
 
-        /* --- CONTENEUR PRINCIPAL --- */
         .main-container { max-width: 1000px; margin: 30px auto; padding: 0 4%; }
-
-        /* --- ARTICLE À LA UNE (HERO) --- */
         .hero-article { position: relative; border-radius: 10px; overflow: hidden; margin-bottom: 40px; border: 1px solid var(--bordure); cursor: pointer; }
         .hero-img-container { height: 300px; width: 100%; }
         .hero-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 30px 20px; background: linear-gradient(to top, rgba(5,11,20,1) 0%, rgba(5,11,20,0.7) 60%, transparent 100%); z-index: 3; }
@@ -112,7 +46,6 @@
         .hero-meta { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--gris); }
         .author-avatar { width: 24px; height: 24px; border-radius: 50%; background-color: var(--jaune-or); }
 
-        /* --- LISTE DES ARTICLES (TOP STORIES) --- */
         .section-header { font-size: 14px; font-weight: bold; color: var(--gris); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
         .section-header::after { content: ''; flex: 1; height: 1px; background-color: var(--bordure); }
 
@@ -125,35 +58,6 @@
         .article-meta { font-size: 12px; color: var(--gris); }
         .article-thumb-container { width: 100px; height: 70px; border-radius: 6px; flex-shrink: 0; }
 
-        /* --- SECTION TENDANCES (TAGS) --- */
-        .trends-section { margin: 40px 0; }
-        .trends-title { font-size: 16px; font-weight: bold; margin-bottom: 15px; color: var(--blanc); display: flex; align-items: center; gap: 5px; }
-        .trends-title span { color: var(--jaune-or); }
-        .tags-container { display: flex; flex-wrap: wrap; gap: 10px; }
-        .tag { background-color: var(--bleu-profond); border: 1px solid var(--bordure); padding: 8px 15px; border-radius: 20px; font-size: 13px; color: var(--blanc); cursor: pointer; transition: background 0.2s; }
-        .tag:hover { background-color: var(--bordure); }
-        .tag span { color: var(--gris); font-size: 11px; margin-left: 5px; }
-
-        /* --- NEWSLETTER --- */
-        .newsletter { background: linear-gradient(135deg, var(--bleu-profond), var(--bleu-fonce)); border: 1px solid var(--bordure); border-radius: 10px; padding: 30px 20px; text-align: center; margin: 40px 0; }
-        .newsletter h3 { font-size: 20px; margin-bottom: 10px; }
-        .newsletter p { font-size: 13px; color: var(--gris); margin-bottom: 20px; }
-        .newsletter-form { display: flex; flex-direction: column; gap: 10px; }
-        .newsletter-form input { padding: 12px 15px; border-radius: 5px; border: 1px solid var(--bordure); background-color: rgba(0,0,0,0.3); color: var(--blanc); outline: none; }
-        .newsletter-form button { padding: 12px 20px; background-color: var(--jaune-or); color: var(--bleu-fonce); border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
-
-        /* --- PIED DE PAGE --- */
-        footer { border-top: 1px solid var(--bordure); padding: 40px 4%; margin-top: 40px; }
-        .footer-grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 30px; }
-        .footer-logo { font-size: 24px; font-weight: 900; margin-bottom: 10px; display: block; }
-        .footer-logo span { color: var(--jaune-or); }
-        .footer-desc { font-size: 13px; color: var(--gris); margin-bottom: 20px; max-width: 300px; }
-        .footer-col h4 { font-size: 14px; margin-bottom: 15px; color: var(--blanc); }
-        .footer-col a { display: block; color: var(--gris); text-decoration: none; font-size: 13px; margin-bottom: 8px; }
-        .footer-col a:hover { color: var(--blanc); }
-        .footer-bottom { text-align: center; font-size: 11px; color: var(--gris); margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--bordure); }
-
-        /* --- RESPONSIVE --- */
         @media (min-width: 768px) {
             .nav-links { display: flex; align-items: center; }
             .hero-img-container { height: 450px; }
@@ -162,15 +66,11 @@
             .hero-desc { display: block; }
             .article-title { font-size: 18px; }
             .article-thumb-container { width: 140px; height: 90px; }
-            .newsletter-form { flex-direction: row; max-width: 500px; margin: 0 auto; }
-            .newsletter-form input { flex: 1; }
-            .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <!-- MENU NAVIGATION -->
     <header>
         <div class="nav-container">
             <div class="nav-logo">SK <span>PLUS</span></div>
@@ -184,37 +84,26 @@
         </div>
     </header>
 
-    <!-- BANDEAU BREAKING NEWS DÉFILANT -->
     <div class="breaking-container">
         <div class="breaking-label">FLASH INFO</div>
         <div class="breaking-marquee">
-            <!-- Les informations sont répétées pour que le défilement soit continu -->
-            <div class="breaking-item">SK PLUS : Le nouveau rendez-vous de l'information congolaise et de la diaspora est en ligne.</div>
-            <div class="breaking-item">Le grand lancement de la Web TV Sendwe Katolo Plus est imminent.</div>
-            <div class="breaking-item">SK Music : La scène urbaine congolaise s'invite sur votre écran.</div>
-            
-            <!-- Deuxième copie (nécessaire pour l'effet boucle) -->
-            <div class="breaking-item">SK PLUS : Le nouveau rendez-vous de l'information congolaise et de la diaspora est en ligne.</div>
-            <div class="breaking-item">Le grand lancement de la Web TV Sendwe Katolo Plus est imminent.</div>
-            <div class="breaking-item">SK Music : La scène urbaine congolaise s'invite sur votre écran.</div>
+            <div class="breaking-item" id="bn-1"></div>
+            <div class="breaking-item" id="bn-2"></div>
         </div>
     </div>
 
-    <!-- CONTENU PRINCIPAL -->
     <main class="main-container">
-
-        <!-- ARTICLE HERO -->
         <article class="hero-article">
             <div class="img-container hero-img-container">
-                <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=800&auto=format&fit=crop" alt="A la une" onload="this.style.opacity=1" style="opacity: 0; transition: opacity 0.5s;">
+                <img id="hero-img" src="" alt="A la une" onload="this.style.opacity=1" style="opacity: 0; transition: opacity 0.5s;">
             </div>
             <div class="hero-content">
                 <div>
-                    <span class="category-tag">POLITIQUE</span>
+                    <span class="category-tag" id="hero-cat"></span>
                     <span class="category-tag gold">À LA UNE</span>
                 </div>
-                <h1 class="hero-title">Le grand lancement de SK PLUS : Une nouvelle voix pour le Congo</h1>
-                <p class="hero-desc">Sendwe Katolo Plus ouvre officiellement ses portes. Découvrez notre nouvelle grille de programmes dédiée à l'information, la culture et le divertissement.</p>
+                <h1 class="hero-title" id="hero-title"></h1>
+                <p class="hero-desc" id="hero-desc"></p>
                 <div class="hero-meta">
                     <div class="author-avatar"></div>
                     <span>Rédaction SK PLUS • Aujourd'hui</span>
@@ -222,112 +111,42 @@
             </div>
         </article>
 
-        <!-- TOP STORIES -->
         <div class="section-header">Top Stories</div>
-        
-        <div class="article-list">
-            <!-- Article 1 -->
-            <div class="article-item">
-                <div class="article-info">
-                    <span class="article-cat">MUSIQUE</span>
-                    <h2 class="article-title">SK Music : La scène urbaine congolaise s'invite sur votre écran</h2>
-                    <div class="article-meta">4 min • Aujourd'hui</div>
-                </div>
-                <div class="img-container article-thumb-container">
-                    <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=200&auto=format&fit=crop" alt="Musique" onload="this.style.opacity=1" style="opacity: 0; transition: opacity 0.5s;">
-                </div>
-            </div>
-
-            <!-- Article 2 -->
-            <div class="article-item">
-                <div class="article-info">
-                    <span class="article-cat">DÉBAT</span>
-                    <h2 class="article-title">SK Débat : Les jeunes et l'entrepreneuriat, quelles solutions ?</h2>
-                    <div class="article-meta">6 min • Hier</div>
-                </div>
-                <div class="img-container article-thumb-container">
-                    <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=200&auto=format&fit=crop" alt="Débat" onload="this.style.opacity=1" style="opacity: 0; transition: opacity 0.5s;">
-                </div>
-            </div>
-
-            <!-- Article 3 -->
-            <div class="article-item">
-                <div class="article-info">
-                    <span class="article-cat">CULTURE</span>
-                    <h2 class="article-title">SK Lifestyle : Mode, gastronomie et art de vivre à Kinshasa</h2>
-                    <div class="article-meta">5 min • Hier</div>
-                </div>
-                <div class="img-container article-thumb-container">
-                    <img src="https://images.unsplash.com/photo-1557425955-df376b5903c8?q=80&w=200&auto=format&fit=crop" alt="Culture" onload="this.style.opacity=1" style="opacity: 0; transition: opacity 0.5s;">
-                </div>
-            </div>
+        <div class="article-list" id="article-list">
+            <!-- Les articles seront injectés ici par le script -->
         </div>
-
-        <!-- TENDANCES -->
-        <div class="trends-section">
-            <div class="trends-title"><span>#</span> Tendances SK PLUS</div>
-            <div class="tags-container">
-                <div class="tag">#Direct <span>45K</span></div>
-                <div class="tag">#Kinshasa <span>32K</span></div>
-                <div class="tag">#Diaspora <span>28K</span></div>
-                <div class="tag">#Musique <span>19K</span></div>
-                <div class="tag">#Culture <span>15K</span></div>
-            </div>
-        </div>
-
-        <!-- NEWSLETTER -->
-        <div class="newsletter">
-            <h3>Recevez l'essentiel de SK PLUS dans votre boîte mail.</h3>
-            <p>Rejoignez la communauté et recevez nos programmes et actualités chaque matin.</p>
-            <div class="newsletter-form">
-                <input type="email" placeholder="votre@email.com">
-                <button>S'abonner</button>
-            </div>
-        </div>
-
     </main>
 
-    <!-- PIED DE PAGE -->
-    <footer>
-        <div class="footer-grid">
-            <div>
-                <span class="footer-logo">SK <span>PLUS</span></span>
-                <p class="footer-desc">La référence de l'information et du divertissement pour le Congo et sa diaspora. Sendwe Katolo Plus.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Actualités</h4>
-                <a href="#">Politique</a>
-                <a href="#">Économie</a>
-                <a href="#">Sport</a>
-                <a href="#">Culture</a>
-            </div>
-            <div class="footer-col">
-                <h4>Découvrir</h4>
-                <a href="#">Vidéos</a>
-                <a href="#">Émissions</a>
-                <a href="#">Tendances</a>
-            </div>
-            <div class="footer-col">
-                <h4>Légal</h4>
-                <a href="#">À propos</a>
-                <a href="#">Contact</a>
-                <a href="#">Mentions légales</a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            &copy; 2024 SK PLUS - Sendwe Katolo. Tous droits réservés.
-        </div>
-    </footer>
-<script src="data.js"></script>
-<script>
-    // Met à jour le bandeau
-    document.querySelector('.breaking-item').innerText = siteData.breakingNews;
-    // Met à jour l'article à la une
-    document.querySelector('.hero-title').innerText = siteData.heroTitle;
-    document.querySelector('.hero-desc').innerText = siteData.heroDesc;
-    document.querySelector('.hero-img-container img').src = siteData.heroImage;
-    document.querySelector('.category-tag').innerText = siteData.heroCategory;
-</script>
+    <!-- SCRIPT DE MISE A JOUR AUTOMATIQUE -->
+    <script src="data.js"></script>
+    <script>
+        // 1. Bandeau
+        document.getElementById('bn-1').innerText = siteData.breakingNews;
+        document.getElementById('bn-2').innerText = siteData.breakingNews;
 
+        // 2. A la une
+        document.getElementById('hero-img').src = siteData.heroImage;
+        document.getElementById('hero-cat').innerText = siteData.heroCategory;
+        document.getElementById('hero-title').innerText = siteData.heroTitle;
+        document.getElementById('hero-desc').innerText = siteData.heroDesc;
+
+        // 3. Top Stories
+        const listContainer = document.getElementById('article-list');
+        siteData.articles.forEach(article => {
+            const articleHTML = `
+                <div class="article-item">
+                    <div class="article-info">
+                        <span class="article-cat">${article.category}</span>
+                        <h2 class="article-title">${article.title}</h2>
+                        <div class="article-meta">${article.time}</div>
+                    </div>
+                    <div class="img-container article-thumb-container">
+                        <img src="${article.image}" alt="${article.title}" onload="this.style.opacity=1" style="opacity: 0; transition: opacity 0.5s;">
+                    </div>
+                </div>
+            `;
+            listContainer.innerHTML += articleHTML;
+        });
+    </script>
 </body>
 </html>
