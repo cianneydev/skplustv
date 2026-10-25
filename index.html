@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SK PLUS - Sendwe Katolo</title>
     <style>
-        /* --- CHARTE GRAPHIQUE --- */
+        /* --- CHARTE GRAPHIQUE SK PLUS --- */
         :root {
             --bleu-fonce: #050B14;
             --bleu-profond: #0A2540;
@@ -28,17 +28,21 @@
             width: 100%;
             top: 0;
             z-index: 1000;
-            background: linear-gradient(to bottom, rgba(5,11,20,1) 0%, rgba(5,11,20,0) 100%);
+            background: linear-gradient(to bottom, var(--bleu-profond) 0%, rgba(10,37,64,0) 100%);
             transition: background 0.3s;
         }
+        
         .nav-logo { font-size: 28px; font-weight: 900; letter-spacing: 1px; }
         .nav-logo span { color: var(--jaune-or); }
+        
         .nav-links { display: none; }
-        .nav-links a { color: var(--gris); text-decoration: none; margin-left: 20px; font-size: 14px; transition: color 0.3s; }
+        .nav-links a { color: var(--gris); text-decoration: none; margin-left: 20px; font-size: 14px; transition: color 0.3s; font-weight: 500; }
         .nav-links a:hover { color: var(--blanc); }
-        .nav-profile { width: 35px; height: 35px; background-color: var(--jaune-or); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: var(--bleu-fonce); font-weight: bold; cursor: pointer; }
+        .nav-links a.active { color: var(--blanc); font-weight: bold; border-bottom: 2px solid var(--jaune-or); padding-bottom: 5px; }
+        
+        .nav-profile { width: 35px; height: 35px; background-color: var(--jaune-or); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: var(--bleu-profond); font-weight: 900; cursor: pointer; }
 
-        /* --- BANNIÈRE PRINCIPALE (HERO) --- */
+        /* --- BANNIÈRE PRINCIPALE (HERO SK PLUS) --- */
         .hero {
             position: relative;
             height: 85vh;
@@ -46,55 +50,74 @@
             flex-direction: column;
             justify-content: flex-end;
             padding: 0 4% 100px 4%;
-            background: linear-gradient(to top, var(--bleu-fonce) 0%, rgba(5,11,20,0.4) 50%, rgba(5,11,20,0.8) 100%), 
+            /* Dégradé utilisant le bleu profond de Sendwe Katolo */
+            background: linear-gradient(to top, var(--bleu-fonce) 0%, rgba(10,37,64,0.6) 50%, rgba(10,37,64,0.9) 100%), 
                         url('https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?q=80&w=1600') center/cover;
         }
+        
         .hero-content { max-width: 600px; z-index: 10; }
-        .hero-badge { color: var(--jaune-or); font-size: 12px; font-weight: bold; letter-spacing: 2px; margin-bottom: 10px; display: block; }
+        
+        .brand-badge { 
+            display: inline-block; background-color: var(--bleu-profond); 
+            border: 1px solid var(--jaune-or); padding: 5px 12px; 
+            border-radius: 4px; font-size: 12px; font-weight: bold; 
+            letter-spacing: 2px; margin-bottom: 20px; color: var(--jaune-or);
+        }
+        
         .hero-title { font-size: 50px; font-weight: 900; margin-bottom: 15px; line-height: 1.1; }
+        .hero-title span { color: var(--jaune-or); }
+        
+        .hero-signature { font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--gris); margin-bottom: 15px; display: block; }
+        
         .hero-description { font-size: 16px; color: #E0E0E0; margin-bottom: 25px; line-height: 1.5; text-shadow: 1px 1px 5px rgba(0,0,0,0.8); }
         
         /* --- BOUTONS --- */
         .hero-buttons { display: flex; gap: 15px; }
         .btn { padding: 12px 28px; font-size: 16px; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: transform 0.2s; }
-        .btn-play { background-color: var(--jaune-or); color: var(--bleu-fonce); }
+        
+        .btn-play { background-color: var(--jaune-or); color: var(--bleu-profond); }
         .btn-play:hover { background-color: #FFC107; transform: scale(1.05); }
-        .btn-info { background-color: rgba(255,255,255,0.2); color: var(--blanc); }
-        .btn-info:hover { background-color: rgba(255,255,255,0.3); transform: scale(1.05); }
+        
+        .btn-info { background-color: rgba(255,255,255,0.1); color: var(--blanc); backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.2); }
+        .btn-info:hover { background-color: rgba(255,255,255,0.2); transform: scale(1.05); }
 
         /* --- RANGÉES DE PROGRAMMES (CARROUSEL) --- */
-        .section-title { padding: 0 4%; font-size: 20px; font-weight: 600; margin-bottom: 15px; margin-top: 20px; }
+        .section-title { padding: 0 4%; font-size: 20px; font-weight: 600; margin-bottom: 15px; margin-top: 20px; color: var(--blanc); border-left: 4px solid var(--jaune-or); padding-left: 10px; margin-left: 4%; }
         
-        .row { display: flex; overflow-x: auto; gap: 10px; padding: 0 4% 40px 4%; scrollbar-width: none; }
+        .row { display: flex; overflow-x: auto; gap: 15px; padding: 0 4% 40px 4%; scrollbar-width: none; }
         .row::-webkit-scrollbar { display: none; }
         
-        .card { flex: 0 0 220px; aspect-ratio: 16/9; border-radius: 6px; overflow: hidden; cursor: pointer; position: relative; transition: transform 0.3s; }
-        .card:hover { transform: scale(1.05); z-index: 10; box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
-        .card img { width: 100%; height: 100%; object-fit: cover; }
-        .card-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 10px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); font-size: 14px; font-weight: bold; }
-        .card-live { position: absolute; top: 10px; left: 10px; background-color: red; color: white; font-size: 10px; font-weight: bold; padding: 3px 6px; border-radius: 3px; }
+        .card { flex: 0 0 240px; aspect-ratio: 16/9; border-radius: 6px; overflow: hidden; cursor: pointer; position: relative; transition: all 0.3s; border: 1px solid transparent; }
+        .card:hover { transform: scale(1.05); z-index: 10; box-shadow: 0 10px 20px rgba(0,0,0,0.5); border-color: var(--jaune-or); }
+        .card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; transition: opacity 0.3s; }
+        .card:hover img { opacity: 1; }
+        
+        .card-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 15px 10px 10px; background: linear-gradient(to top, rgba(5,11,20,0.95), transparent); font-size: 14px; font-weight: bold; }
+        
+        .card-live { position: absolute; top: 10px; left: 10px; background-color: var(--jaune-or); color: var(--bleu-profond); font-size: 10px; font-weight: 900; padding: 3px 6px; border-radius: 3px; text-transform: uppercase; }
 
         /* --- PIED DE PAGE --- */
-        footer { padding: 40px 4%; color: var(--gris); font-size: 12px; border-top: 1px solid #1E3A5F; margin-top: 20px; }
+        footer { padding: 40px 4%; color: var(--gris); font-size: 12px; border-top: 1px solid rgba(30, 58, 95, 0.5); margin-top: 20px; }
         footer p { margin-bottom: 10px; }
-        .footer-logo { color: var(--blanc); font-size: 18px; font-weight: bold; margin-bottom: 20px; display: block; }
+        .footer-logo { color: var(--blanc); font-size: 18px; font-weight: 900; margin-bottom: 20px; display: block; }
         .footer-logo span { color: var(--jaune-or); }
+        .footer-slogan { color: var(--jaune-or); font-style: italic; margin-top: 15px;}
 
         /* --- RESPONSIVE (Téléphones) --- */
         @media (min-width: 768px) {
             .nav-links { display: flex; }
-            .hero-title { font-size: 70px; }
+            .hero-title { font-size: 65px; }
             .nav-logo { font-size: 32px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- MENU NAVIGATION -->
+    <!-- MENU NAVIGATION (Marque SK PLUS) -->
     <nav>
         <div class="nav-logo">SK <span>PLUS</span></div>
         <div class="nav-links">
-            <a href="#" style="color: white; font-weight: bold;">Accueil</a>
+            <a href="#" class="active">Accueil</a>
             <a href="#">Programmes</a>
             <a href="#">Direct</a>
             <a href="#">Musique</a>
@@ -103,14 +126,15 @@
         <div class="nav-profile">SK</div>
     </nav>
 
-    <!-- GRANDE BANNIÈRE -->
+    <!-- GRANDE BANNIÈRE (Hero SK PLUS) -->
     <header class="hero">
         <div class="hero-content">
-            <span class="hero-badge">SK PLUS ORIGINAL</span>
-            <h1 class="hero-title">SK PLUS Info : <br>Le Direct</h1>
-            <p class="hero-description">L'actualité congolaise et internationale en direct. Suivez nos journalistes pour ne rien manquer de ce qui se passe au Congo et dans la diaspora.</p>
+            <span class="brand-badge">SENDWE KATOLO</span>
+            <h1 class="hero-title">SK <span>PLUS</span> <br>Le Direct</h1>
+            <span class="hero-signature">Ta TV, partout, tout le temps</span>
+            <p class="hero-description">Bienvenue sur la Web TV de référence pour le Congo et sa diaspora. Suivez l'actualité, les débats et les talents du pays, en direct et en haute qualité.</p>
             <div class="hero-buttons">
-                <!-- Le bouton play pointe vers le direct, vous pourrez changer le lien ici -->
+                <!-- Le bouton play pointe vers votre future chaîne YouTube -->
                 <a href="https://youtube.com/@skplus" target="_blank" class="btn btn-play">▶ Regarder le Direct</a>
                 <button class="btn btn-info">ℹ Plus d'infos</button>
             </div>
@@ -137,7 +161,7 @@
     </div>
 
     <!-- SECTION : PROGRAMMES -->
-    <h2 class="section-title">Les Programmes SK PLUS</h2>
+    <h2 class="section-title">Les Émissions SK PLUS</h2>
     <div class="row">
         <div class="card">
             <img src="https://images.unsplash.com/photo-1557425955-df376b5903c8?q=80&w=400" alt="Lifestyle">
@@ -160,8 +184,9 @@
     <!-- PIED DE PAGE -->
     <footer>
         <span class="footer-logo">SK <span>PLUS</span></span>
-        <p>Sendwe Katolo Plus. Ta TV, partout, tout le temps.</p>
-        <p>&copy; 2024 SK PLUS. Tous droits réservés.</p>
+        <p>Sendwe Katolo Plus. Tous droits réservés.</p>
+        <p class="footer-slogan">« Ta TV, partout, tout le temps »</p>
+        <p style="margin-top: 20px; font-size: 11px;">&copy; 2024 SK PLUS</p>
     </footer>
 
 </body>
