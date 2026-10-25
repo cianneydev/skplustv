@@ -2,65 +2,102 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Administration SK PLUS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration - SK PLUS</title>
     <style>
-        body { background-color: #0A2540; color: white; font-family: Arial, sans-serif; padding: 50px; display: flex; flex-direction: column; align-items: center; }
-        .admin-box { background: #1E3A5F; padding: 30px; border-radius: 10px; width: 100%; max-width: 500px; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
-        h2 { color: #F5B301; margin-top: 0; }
-        input, textarea { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: none; box-sizing: border-box; font-family: monospace; }
-        button { background-color: #F5B301; color: #0A2540; font-weight: bold; padding: 15px; border: none; border-radius: 5px; cursor: pointer; width: 100%; margin-top: 20px; font-size: 16px; }
-        button:hover { opacity: 0.8; }
-        .status { color: #F5B301; margin-top: 15px; font-size: 14px; }
-        textarea { height: 120px; margin-top: 10px; }
+        body { background-color: #050B14; color: white; font-family: Arial, sans-serif; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .admin-container { background-color: #0A2540; padding: 30px; border-radius: 10px; width: 100%; max-width: 600px; border: 1px solid #1E3A5F; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h2 { color: #F5B301; text-align: center; margin-top: 0; }
+        label { display: block; margin-top: 15px; font-size: 14px; color: #A0AAB2; }
+        input, textarea { width: 100%; padding: 12px; margin-top: 5px; border-radius: 5px; border: 1px solid #1E3A5F; background-color: #050B14; color: white; box-sizing: border-box; }
+        button { background-color: #F5B301; color: #0A2540; border: none; padding: 15px; width: 100%; margin-top: 25px; font-weight: bold; font-size: 16px; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #FFC107; }
+        .result-box { display: none; margin-top: 30px; background-color: #050B14; padding: 20px; border-radius: 5px; border: 1px dashed #F5B301; }
+        .result-box h3 { color: #F5B301; margin-top: 0; font-size: 16px; }
+        .code-area { width: 100%; height: 200px; font-family: monospace; font-size: 12px; background-color: #000; color: #00FF00; padding: 10px; border: 1px solid #1E3A5F; }
+        .btn-copy { background-color: #1E3A5F; color: white; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-    <div class="admin-box" id="login-box">
+    <div class="admin-container" id="login-section">
         <h2>Connexion Administration</h2>
-        <p>Entrez le mot de passe pour gérer le direct.</p>
-        <input type="password" id="pass" placeholder="Mot de passe">
+        <label>Mot de passe :</label>
+        <input type="password" id="password" placeholder="Entrez le mot de passe">
         <button onclick="login()">Se connecter</button>
     </div>
 
-    <div class="admin-box" id="admin-panel" style="display: none;">
-        <h2>Paramètres SK PLUS</h2>
+    <div class="admin-container" id="form-section" style="display: none;">
+        <h2>Gérer le site SK PLUS</h2>
         
-        <label>Lien d'intégration YouTube Live (Embed) :</label>
-        <input type="text" id="ytUrl" placeholder="https://www.youtube.com/embed/...">
-        
-        <label>Message d'attente (si pas de direct) :</label>
-        <input type="text" id="msg">
-        
-        <button onclick="sauvegarder()">Générer la configuration</button>
-        <div class="status" id="status"></div>
+        <label>Texte du bandeau FLASH INFO :</label>
+        <input type="text" id="breakingNews" placeholder="Ex: Flash info de dernière minute...">
+
+        <label>Catégorie de l'article à la une :</label>
+        <input type="text" id="heroCategory" placeholder="Ex: POLITIQUE, SPORT, CULTURE...">
+
+        <label>Titre de l'article à la une :</label>
+        <input type="text" id="heroTitle" placeholder="Ex: Lancement officiel de SK PLUS">
+
+        <label>Description (sous-titre) :</label>
+        <textarea id="heroDesc" rows="3"></textarea>
+
+        <label>Lien de l'image (URL) :</label>
+        <input type="text" id="heroImage" placeholder="https://...">
+
+        <button onclick="genererCode()">Générer la mise à jour</button>
+
+        <div class="result-box" id="result">
+            <h3>✅ Copiez le code ci-dessous :</h3>
+            <p style="font-size: 12px; color: #A0AAB2;">Allez sur GitHub > Ouvrez <b>data.js</b> > Cliquez sur le crayon ✏️ > Remplacez tout par ce code > Validez.</p>
+            <textarea class="code-area" id="outputCode" readonly></textarea>
+            <button class="btn-copy" onclick="copier()">Copier le code</button>
+        </div>
     </div>
 
-    <script src="config.js"></script>
+    <script src="data.js"></script>
     <script>
         function login() {
-            const pass = document.getElementById('pass').value;
-            if (pass === siteConfig.motDePasse) {
-                document.getElementById('login-box').style.display = 'none';
-                document.getElementById('admin-panel').style.display = 'block';
-                document.getElementById('ytUrl').value = siteConfig.youtubeEmbedUrl;
-                document.getElementById('msg').value = siteConfig.messageDirect;
+            const pass = document.getElementById('password').value;
+            if (pass === "skplus2024") { // Le mot de passe
+                document.getElementById('login-section').style.display = 'none';
+                document.getElementById('form-section').style.display = 'block';
+                
+                // Remplir le formulaire avec les données actuelles
+                document.getElementById('breakingNews').value = siteData.breakingNews;
+                document.getElementById('heroCategory').value = siteData.heroCategory;
+                document.getElementById('heroTitle').value = siteData.heroTitle;
+                document.getElementById('heroDesc').value = siteData.heroDesc;
+                document.getElementById('heroImage').value = siteData.heroImage;
             } else {
                 alert("Mot de passe incorrect !");
             }
         }
 
-        function sauvegarder() {
-            const newUrl = document.getElementById('ytUrl').value;
-            const newMsg = document.getElementById('msg').value;
-            
-            const newConfig = `const siteConfig = {
-    youtubeEmbedUrl: "${newUrl}",
-    messageDirect: "${newMsg}",
-    motDePasse: "${siteConfig.motDePasse}"
+        function genererCode() {
+            const bn = document.getElementById('breakingNews').value;
+            const hc = document.getElementById('heroCategory').value;
+            const ht = document.getElementById('heroTitle').value;
+            const hd = document.getElementById('heroDesc').value;
+            const hi = document.getElementById('heroImage').value;
+
+            const code = `const siteData = {
+    breakingNews: "${bn}",
+    heroCategory: "${hc}",
+    heroTitle: "${ht}",
+    heroDesc: "${hd}",
+    heroImage: "${hi}"
 };`;
 
-            document.getElementById('status').innerHTML = "✅ <b>Configuration prête !</b><br>Copiez le code ci-dessous et collez-le dans votre fichier <b>config.js</b> sur GitHub (remplacez tout le texte) :<br><br><textarea onclick='this.select()'>" + newConfig + "</textarea>";
+            document.getElementById('outputCode').value = code;
+            document.getElementById('result').style.display = 'block';
+        }
+
+        function copier() {
+            const copyText = document.getElementById('outputCode');
+            copyText.select();
+            document.execCommand("copy");
+            alert("Code copié ! Allez le coller dans data.js sur GitHub.");
         }
     </script>
 </body>
