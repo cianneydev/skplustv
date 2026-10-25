@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Administration SK PLUS</title>
+    <style>
+        body { background-color: #0A2540; color: white; font-family: Arial, sans-serif; padding: 50px; display: flex; flex-direction: column; align-items: center; }
+        .admin-box { background: #1E3A5F; padding: 30px; border-radius: 10px; width: 100%; max-width: 500px; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+        h2 { color: #F5B301; margin-top: 0; }
+        input, textarea { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: none; box-sizing: border-box; font-family: monospace; }
+        button { background-color: #F5B301; color: #0A2540; font-weight: bold; padding: 15px; border: none; border-radius: 5px; cursor: pointer; width: 100%; margin-top: 20px; font-size: 16px; }
+        button:hover { opacity: 0.8; }
+        .status { color: #F5B301; margin-top: 15px; font-size: 14px; }
+        textarea { height: 120px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="admin-box" id="login-box">
+        <h2>Connexion Administration</h2>
+        <p>Entrez le mot de passe pour gérer le direct.</p>
+        <input type="password" id="pass" placeholder="Mot de passe">
+        <button onclick="login()">Se connecter</button>
+    </div>
+
+    <div class="admin-box" id="admin-panel" style="display: none;">
+        <h2>Paramètres SK PLUS</h2>
+        
+        <label>Lien d'intégration YouTube Live (Embed) :</label>
+        <input type="text" id="ytUrl" placeholder="https://www.youtube.com/embed/...">
+        
+        <label>Message d'attente (si pas de direct) :</label>
+        <input type="text" id="msg">
+        
+        <button onclick="sauvegarder()">Générer la configuration</button>
+        <div class="status" id="status"></div>
+    </div>
+
+    <script src="config.js"></script>
+    <script>
+        function login() {
+            const pass = document.getElementById('pass').value;
+            if (pass === siteConfig.motDePasse) {
+                document.getElementById('login-box').style.display = 'none';
+                document.getElementById('admin-panel').style.display = 'block';
+                document.getElementById('ytUrl').value = siteConfig.youtubeEmbedUrl;
+                document.getElementById('msg').value = siteConfig.messageDirect;
+            } else {
+                alert("Mot de passe incorrect !");
+            }
+        }
+
+        function sauvegarder() {
+            const newUrl = document.getElementById('ytUrl').value;
+            const newMsg = document.getElementById('msg').value;
+            
+            const newConfig = `const siteConfig = {
+    youtubeEmbedUrl: "${newUrl}",
+    messageDirect: "${newMsg}",
+    motDePasse: "${siteConfig.motDePasse}"
+};`;
+
+            document.getElementById('status').innerHTML = "✅ <b>Configuration prête !</b><br>Copiez le code ci-dessous et collez-le dans votre fichier <b>config.js</b> sur GitHub (remplacez tout le texte) :<br><br><textarea onclick='this.select()'>" + newConfig + "</textarea>";
+        }
+    </script>
+</body>
+</html>
