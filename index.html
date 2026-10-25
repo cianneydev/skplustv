@@ -11,182 +11,225 @@
             --bleu-profond: #0A2540;
             --jaune-or: #F5B301;
             --blanc: #FFFFFF;
-            --gris: #A0AAB2;
+            --gris: #8892B0;
+            --bordure: #1E3A5F;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', Arial, sans-serif; }
-        
-        body { background-color: var(--bleu-fonce); color: var(--blanc); overflow-x: hidden; }
+        body { background-color: var(--bleu-fonce); color: var(--blanc); line-height: 1.6; }
 
-        /* --- BARRE DE NAVIGATION --- */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 4%;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            background: linear-gradient(to bottom, var(--bleu-profond) 0%, rgba(10,37,64,0) 100%);
-            transition: background 0.3s;
-        }
-        
-        .nav-logo { font-size: 28px; font-weight: 900; letter-spacing: 1px; }
+        /* --- MENU NAVIGATION --- */
+        header { border-bottom: 1px solid var(--bordure); position: sticky; top: 0; background-color: var(--bleu-fonce); z-index: 100; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 15px 4%; max-width: 1200px; margin: 0 auto; }
+        .nav-logo { font-size: 24px; font-weight: 900; letter-spacing: 1px; }
         .nav-logo span { color: var(--jaune-or); }
-        
         .nav-links { display: none; }
-        .nav-links a { color: var(--gris); text-decoration: none; margin-left: 20px; font-size: 14px; transition: color 0.3s; font-weight: 500; }
+        .nav-links a { color: var(--gris); text-decoration: none; margin-left: 20px; font-size: 14px; font-weight: 500; }
         .nav-links a:hover { color: var(--blanc); }
-        .nav-links a.active { color: var(--blanc); font-weight: bold; border-bottom: 2px solid var(--jaune-or); padding-bottom: 5px; }
-        
-        .nav-profile { width: 35px; height: 35px; background-color: var(--jaune-or); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: var(--bleu-profond); font-weight: 900; cursor: pointer; }
+        .nav-live { color: #FF3B30; font-weight: bold; font-size: 12px; display: flex; align-items: center; gap: 5px; }
+        .nav-live::before { content: ''; width: 8px; height: 8px; background-color: #FF3B30; border-radius: 50%; display: inline-block; }
 
-        /* --- BANNIÈRE PRINCIPALE (HERO SK PLUS) --- */
-        .hero {
-            position: relative;
-            height: 85vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 0 4% 100px 4%;
-            /* Dégradé utilisant le bleu profond de Sendwe Katolo */
-            background: linear-gradient(to top, var(--bleu-fonce) 0%, rgba(10,37,64,0.6) 50%, rgba(10,37,64,0.9) 100%), 
-                        url('https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?q=80&w=1600') center/cover;
-        }
-        
-        .hero-content { max-width: 600px; z-index: 10; }
-        
-        .brand-badge { 
-            display: inline-block; background-color: var(--bleu-profond); 
-            border: 1px solid var(--jaune-or); padding: 5px 12px; 
-            border-radius: 4px; font-size: 12px; font-weight: bold; 
-            letter-spacing: 2px; margin-bottom: 20px; color: var(--jaune-or);
-        }
-        
-        .hero-title { font-size: 50px; font-weight: 900; margin-bottom: 15px; line-height: 1.1; }
-        .hero-title span { color: var(--jaune-or); }
-        
-        .hero-signature { font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--gris); margin-bottom: 15px; display: block; }
-        
-        .hero-description { font-size: 16px; color: #E0E0E0; margin-bottom: 25px; line-height: 1.5; text-shadow: 1px 1px 5px rgba(0,0,0,0.8); }
-        
-        /* --- BOUTONS --- */
-        .hero-buttons { display: flex; gap: 15px; }
-        .btn { padding: 12px 28px; font-size: 16px; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: transform 0.2s; }
-        
-        .btn-play { background-color: var(--jaune-or); color: var(--bleu-profond); }
-        .btn-play:hover { background-color: #FFC107; transform: scale(1.05); }
-        
-        .btn-info { background-color: rgba(255,255,255,0.1); color: var(--blanc); backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.2); }
-        .btn-info:hover { background-color: rgba(255,255,255,0.2); transform: scale(1.05); }
+        /* --- BANDEAU ALERTE (BREAKING NEWS) --- */
+        .breaking-news { background-color: var(--jaune-or); color: var(--bleu-fonce); padding: 10px 4%; font-size: 13px; font-weight: bold; display: flex; align-items: center; gap: 15px; overflow: hidden; white-space: nowrap; }
+        .breaking-label { background-color: var(--bleu-fonce); color: var(--blanc); padding: 3px 8px; border-radius: 3px; font-size: 10px; letter-spacing: 1px; }
 
-        /* --- RANGÉES DE PROGRAMMES (CARROUSEL) --- */
-        .section-title { padding: 0 4%; font-size: 20px; font-weight: 600; margin-bottom: 15px; margin-top: 20px; color: var(--blanc); border-left: 4px solid var(--jaune-or); padding-left: 10px; margin-left: 4%; }
-        
-        .row { display: flex; overflow-x: auto; gap: 15px; padding: 0 4% 40px 4%; scrollbar-width: none; }
-        .row::-webkit-scrollbar { display: none; }
-        
-        .card { flex: 0 0 240px; aspect-ratio: 16/9; border-radius: 6px; overflow: hidden; cursor: pointer; position: relative; transition: all 0.3s; border: 1px solid transparent; }
-        .card:hover { transform: scale(1.05); z-index: 10; box-shadow: 0 10px 20px rgba(0,0,0,0.5); border-color: var(--jaune-or); }
-        .card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; transition: opacity 0.3s; }
-        .card:hover img { opacity: 1; }
-        
-        .card-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 15px 10px 10px; background: linear-gradient(to top, rgba(5,11,20,0.95), transparent); font-size: 14px; font-weight: bold; }
-        
-        .card-live { position: absolute; top: 10px; left: 10px; background-color: var(--jaune-or); color: var(--bleu-profond); font-size: 10px; font-weight: 900; padding: 3px 6px; border-radius: 3px; text-transform: uppercase; }
+        /* --- CONTENEUR PRINCIPAL --- */
+        .main-container { max-width: 1000px; margin: 30px auto; padding: 0 4%; }
+
+        /* --- ARTICLE À LA UNE (HERO) --- */
+        .hero-article { position: relative; border-radius: 10px; overflow: hidden; margin-bottom: 40px; cursor: pointer; border: 1px solid var(--bordure); }
+        .hero-img { width: 100%; height: 400px; object-fit: cover; display: block; opacity: 0.8; transition: opacity 0.3s; }
+        .hero-article:hover .hero-img { opacity: 1; }
+        .hero-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 30px; background: linear-gradient(to top, rgba(5,11,20,1) 0%, rgba(5,11,20,0.6) 50%, transparent 100%); }
+        .category-tag { background-color: #FF3B30; color: white; font-size: 10px; font-weight: bold; padding: 4px 8px; border-radius: 3px; text-transform: uppercase; margin-right: 10px; }
+        .category-tag.gold { background-color: var(--jaune-or); color: var(--bleu-fonce); }
+        .hero-title { font-size: 32px; font-weight: 800; margin: 15px 0 10px; line-height: 1.2; }
+        .hero-desc { font-size: 15px; color: #D1D5DB; margin-bottom: 15px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .hero-meta { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--gris); }
+        .author-avatar { width: 24px; height: 24px; border-radius: 50%; background-color: var(--jaune-or); }
+
+        /* --- LISTE DES ARTICLES (TOP STORIES) --- */
+        .section-header { font-size: 14px; font-weight: bold; color: var(--gris); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .section-header::after { content: ''; flex: 1; height: 1px; background-color: var(--bordure); }
+
+        .article-list { display: flex; flex-direction: column; gap: 25px; }
+        .article-item { display: flex; justify-content: space-between; gap: 20px; padding-bottom: 25px; border-bottom: 1px solid var(--bordure); cursor: pointer; }
+        .article-info { flex: 1; }
+        .article-cat { font-size: 11px; font-weight: bold; color: var(--jaune-or); text-transform: uppercase; display: block; margin-bottom: 5px; }
+        .article-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; line-height: 1.3; transition: color 0.2s; }
+        .article-item:hover .article-title { color: var(--jaune-or); }
+        .article-meta { font-size: 12px; color: var(--gris); }
+        .article-thumb { width: 120px; height: 80px; border-radius: 6px; object-fit: cover; background-color: var(--bordure); }
+
+        /* --- SECTION TENDANCES (TAGS) --- */
+        .trends-section { margin: 40px 0; }
+        .trends-title { font-size: 16px; font-weight: bold; margin-bottom: 15px; color: var(--blanc); display: flex; align-items: center; gap: 5px; }
+        .trends-title span { color: var(--jaune-or); }
+        .tags-container { display: flex; flex-wrap: wrap; gap: 10px; }
+        .tag { background-color: var(--bleu-profond); border: 1px solid var(--bordure); padding: 8px 15px; border-radius: 20px; font-size: 13px; color: var(--blanc); cursor: pointer; transition: background 0.2s; }
+        .tag:hover { background-color: var(--bordure); }
+        .tag span { color: var(--gris); font-size: 11px; margin-left: 5px; }
+
+        /* --- NEWSLETTER --- */
+        .newsletter { background: linear-gradient(135deg, var(--bleu-profond), var(--bleu-fonce)); border: 1px solid var(--bordure); border-radius: 10px; padding: 40px 30px; text-align: center; margin: 40px 0; }
+        .newsletter h3 { font-size: 22px; margin-bottom: 10px; }
+        .newsletter p { font-size: 14px; color: var(--gris); margin-bottom: 20px; }
+        .newsletter-form { display: flex; max-width: 400px; margin: 0 auto; gap: 10px; }
+        .newsletter-form input { flex: 1; padding: 12px 15px; border-radius: 5px; border: 1px solid var(--bordure); background-color: rgba(0,0,0,0.3); color: var(--blanc); outline: none; }
+        .newsletter-form button { padding: 12px 20px; background-color: var(--jaune-or); color: var(--bleu-fonce); border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
 
         /* --- PIED DE PAGE --- */
-        footer { padding: 40px 4%; color: var(--gris); font-size: 12px; border-top: 1px solid rgba(30, 58, 95, 0.5); margin-top: 20px; }
-        footer p { margin-bottom: 10px; }
-        .footer-logo { color: var(--blanc); font-size: 18px; font-weight: 900; margin-bottom: 20px; display: block; }
+        footer { border-top: 1px solid var(--bordure); padding: 40px 4%; margin-top: 40px; }
+        .footer-grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 30px; }
+        .footer-logo { font-size: 24px; font-weight: 900; margin-bottom: 10px; display: block; }
         .footer-logo span { color: var(--jaune-or); }
-        .footer-slogan { color: var(--jaune-or); font-style: italic; margin-top: 15px;}
+        .footer-desc { font-size: 13px; color: var(--gris); margin-bottom: 20px; max-width: 300px; }
+        .footer-col h4 { font-size: 14px; margin-bottom: 15px; color: var(--blanc); }
+        .footer-col a { display: block; color: var(--gris); text-decoration: none; font-size: 13px; margin-bottom: 8px; }
+        .footer-col a:hover { color: var(--blanc); }
+        .footer-bottom { text-align: center; font-size: 11px; color: var(--gris); margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--bordure); }
 
-        /* --- RESPONSIVE (Téléphones) --- */
+        /* --- RESPONSIVE --- */
         @media (min-width: 768px) {
-            .nav-links { display: flex; }
-            .hero-title { font-size: 65px; }
-            .nav-logo { font-size: 32px; }
+            .nav-links { display: flex; align-items: center; }
+            .hero-img { height: 500px; }
+            .hero-title { font-size: 40px; }
+            .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <!-- MENU NAVIGATION (Marque SK PLUS) -->
-    <nav>
-        <div class="nav-logo">SK <span>PLUS</span></div>
-        <div class="nav-links">
-            <a href="#" class="active">Accueil</a>
-            <a href="#">Programmes</a>
-            <a href="#">Direct</a>
-            <a href="#">Musique</a>
-            <a href="#">Débats</a>
-        </div>
-        <div class="nav-profile">SK</div>
-    </nav>
-
-    <!-- GRANDE BANNIÈRE (Hero SK PLUS) -->
-    <header class="hero">
-        <div class="hero-content">
-            <span class="brand-badge">SENDWE KATOLO</span>
-            <h1 class="hero-title">SK <span>PLUS</span> <br>Le Direct</h1>
-            <span class="hero-signature">Ta TV, partout, tout le temps</span>
-            <p class="hero-description">Bienvenue sur la Web TV de référence pour le Congo et sa diaspora. Suivez l'actualité, les débats et les talents du pays, en direct et en haute qualité.</p>
-            <div class="hero-buttons">
-                <!-- Le bouton play pointe vers votre future chaîne YouTube -->
-                <a href="https://youtube.com/@skplus" target="_blank" class="btn btn-play">▶ Regarder le Direct</a>
-                <button class="btn btn-info">ℹ Plus d'infos</button>
+    <!-- MENU NAVIGATION -->
+    <header>
+        <div class="nav-container">
+            <div class="nav-logo">SK <span>PLUS</span></div>
+            <div class="nav-links">
+                <a href="#" style="color: var(--blanc);">Accueil</a>
+                <a href="#">Actualités</a>
+                <a href="#">Vidéos</a>
+                <a href="#">Émissions</a>
+                <a href="#" class="nav-live">LIVE</a>
             </div>
         </div>
     </header>
 
-    <!-- SECTION : EN DIRECT -->
-    <h2 class="section-title">En Direct sur SK PLUS</h2>
-    <div class="row">
-        <div class="card">
-            <span class="card-live">LIVE</span>
-            <img src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?q=80&w=400" alt="Direct Info">
-            <div class="card-overlay">SK Info - Le JT</div>
-        </div>
-        <div class="card">
-            <span class="card-live">LIVE</span>
-            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=400" alt="Musique">
-            <div class="card-overlay">SK Music Live</div>
-        </div>
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=400" alt="Débat">
-            <div class="card-overlay">SK Débat</div>
-        </div>
+    <!-- BANDEAU BREAKING NEWS -->
+    <div class="breaking-news">
+        <span class="breaking-label">À LA UNE</span>
+        <span>SK PLUS : Le nouveau rendez-vous de l'information congolaise et de la diaspora est en ligne.</span>
     </div>
 
-    <!-- SECTION : PROGRAMMES -->
-    <h2 class="section-title">Les Émissions SK PLUS</h2>
-    <div class="row">
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1557425955-df376b5903c8?q=80&w=400" alt="Lifestyle">
-            <div class="card-overlay">SK Lifestyle</div>
+    <!-- CONTENU PRINCIPAL -->
+    <main class="main-container">
+
+        <!-- ARTICLE HERO -->
+        <article class="hero-article">
+            <!-- Image d'illustration (Remplaçable par une image de votre choix) -->
+            <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1200" alt="A la une" class="hero-img">
+            <div class="hero-content">
+                <div>
+                    <span class="category-tag">POLITIQUE</span>
+                    <span class="category-tag gold">À LA UNE</span>
+                </div>
+                <h1 class="hero-title">Le grand lancement de SK PLUS : Une nouvelle voix pour le 243</h1>
+                <p class="hero-desc">Sendwe Katolo Plus ouvre officiellement ses portes. Découvrez notre nouvelle grille de programmes dédiée à l'information, la culture et le divertissement.</p>
+                <div class="hero-meta">
+                    <div class="author-avatar"></div>
+                    <span>Rédaction SK PLUS • Aujourd'hui</span>
+                </div>
+            </div>
+        </article>
+
+        <!-- TOP STORIES -->
+        <div class="section-header">Top Stories</div>
+        
+        <div class="article-list">
+            <!-- Article 1 -->
+            <div class="article-item">
+                <div class="article-info">
+                    <span class="article-cat">MUSIQUE</span>
+                    <h2 class="article-title">SK Music : La scène urbaine congolaise s'invite sur votre écran</h2>
+                    <div class="article-meta">4 min • Aujourd'hui</div>
+                </div>
+                <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=200" alt="Musique" class="article-thumb">
+            </div>
+
+            <!-- Article 2 -->
+            <div class="article-item">
+                <div class="article-info">
+                    <span class="article-cat">DÉBAT</span>
+                    <h2 class="article-title">SK Débat : Les jeunes et l'entrepreneuriat, quelles solutions ?</h2>
+                    <div class="article-meta">6 min • Hier</div>
+                </div>
+                <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=200" alt="Débat" class="article-thumb">
+            </div>
+
+            <!-- Article 3 -->
+            <div class="article-item">
+                <div class="article-info">
+                    <span class="article-cat">CULTURE</span>
+                    <h2 class="article-title">SK Lifestyle : Mode, gastronomie et art de vivre à Kinshasa</h2>
+                    <div class="article-meta">5 min • Hier</div>
+                </div>
+                <img src="https://images.unsplash.com/photo-1557425955-df376b5903c8?q=80&w=200" alt="Culture" class="article-thumb">
+            </div>
         </div>
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?q=80&w=400" alt="Ciné">
-            <div class="card-overlay">SK Ciné</div>
+
+        <!-- TENDANCES -->
+        <div class="trends-section">
+            <div class="trends-title"><span>#</span> Tendances SK PLUS</div>
+            <div class="tags-container">
+                <div class="tag">#Direct <span>45K</span></div>
+                <div class="tag">#Kinshasa <span>32K</span></div>
+                <div class="tag">#Diaspora <span>28K</span></div>
+                <div class="tag">#Musique <span>19K</span></div>
+                <div class="tag">#Culture <span>15K</span></div>
+            </div>
         </div>
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1516280440502-bd9e43f0f94a?q=80&w=400" alt="Interview">
-            <div class="card-overlay">SK Rencontre</div>
+
+        <!-- NEWSLETTER -->
+        <div class="newsletter">
+            <h3>Recevez l'essentiel de SK PLUS dans votre boîte mail.</h3>
+            <p>Rejoignez la communauté et recevez nos programmes et actualités chaque matin.</p>
+            <div class="newsletter-form">
+                <input type="email" placeholder="votre@email.com">
+                <button>S'abonner</button>
+            </div>
         </div>
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=400" alt="Sport">
-            <div class="card-overlay">SK Sport</div>
-        </div>
-    </div>
+
+    </main>
 
     <!-- PIED DE PAGE -->
     <footer>
-        <span class="footer-logo">SK <span>PLUS</span></span>
-        <p>Sendwe Katolo Plus. Tous droits réservés.</p>
-        <p class="footer-slogan">« Ta TV, partout, tout le temps »</p>
-        <p style="margin-top: 20px; font-size: 11px;">&copy; 2024 SK PLUS</p>
+        <div class="footer-grid">
+            <div>
+                <span class="footer-logo">SK <span>PLUS</span></span>
+                <p class="footer-desc">La référence de l'information et du divertissement pour le Congo et sa diaspora. Sendwe Katolo Plus.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Actualités</h4>
+                <a href="#">Politique</a>
+                <a href="#">Économie</a>
+                <a href="#">Sport</a>
+                <a href="#">Culture</a>
+            </div>
+            <div class="footer-col">
+                <h4>Découvrir</h4>
+                <a href="#">Vidéos</a>
+                <a href="#">Émissions</a>
+                <a href="#">Tendances</a>
+            </div>
+            <div class="footer-col">
+                <h4>Légal</h4>
+                <a href="#">À propos</a>
+                <a href="#">Contact</a>
+                <a href="#">Mentions légales</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2024 SK PLUS - Sendwe Katolo. Tous droits réservés.
+        </div>
     </footer>
 
 </body>
