@@ -318,6 +318,16 @@
             &copy; 2024 SK PLUS - Sendwe Katolo. Tous droits réservés.
         </div>
     </footer>
+<script src="data.js"></script>
+<script>
+    // Met à jour le bandeau
+    document.querySelector('.breaking-item').innerText = siteData.breakingNews;
+    // Met à jour l'article à la une
+    document.querySelector('.hero-title').innerText = siteData.heroTitle;
+    document.querySelector('.hero-desc').innerText = siteData.heroDesc;
+    document.querySelector('.hero-img-container img').src = siteData.heroImage;
+    document.querySelector('.category-tag').innerText = siteData.heroCategory;
+</script>
 
 </body>
 </html>
